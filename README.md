@@ -1,0 +1,1 @@
+Horribly WIP port of [ali1234/raspi-teletext](raspi-teletext)'s closed captioning to Rust, because the author of that library can't actually test the CC part and the result is actually something that works intermintently and breaks randomly. Written in Rust because that screams "memory safety bugs" and I'm not using C for that reason.
