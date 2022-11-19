@@ -21,7 +21,7 @@ struct RenderShared {
 
     image: Vec<u8>,
     width: u32,
-    image_rect: *const image::Rect,
+    image_rect: image::Rect,
     draw_func: DrawFunc,
     delay: Duration,
 
@@ -133,7 +133,7 @@ impl RenderShared {
             resource,
             image: Vec::new(),
             width: options.width,
-            image_rect: &image_rect as *const Rect,
+            image_rect: image_rect,
             draw_func: options.draw_func,
             delay: delay,
             channel: mpsc::channel(),
@@ -169,7 +169,7 @@ impl RenderShared {
                 assert!(!ret);
                 next_resource ^= 1;
                 (&self.draw_func)(&self.image, next_resource);
-                ret = dispmanx::resource_write_data(resource, _8BPP, pitch((&self).width), rust_type_to_void!(&self.image), (&self).image_rect);
+                ret = dispmanx::resource_write_data(resource, _8BPP, pitch((&self).width), rust_type_to_void!(&self.image), (&self).image_rect as *const Rect);
                 assert!(!ret);
             }
         
